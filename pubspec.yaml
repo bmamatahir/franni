@@ -1,0 +1,56 @@
+name: driving_school_controller
+description: easy way to note answers for driving license sessions
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.2.2 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^0.1.2
+  provider: any
+  hive: ^1.4.1+1
+  hive_flutter: ^0.3.0+2
+  enum_to_string: ^1.0.9
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  hive_generator: ^0.7.1
+
+flutter:
+  uses-material-design: true
+
+  
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  #
+  
+  
