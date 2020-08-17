@@ -14,7 +14,7 @@ dependencies:
   hive: ^1.4.1+1
   hive_flutter: ^0.3.0+2
   enum_to_string: ^1.0.9
-
+  localize_and_translate: ^2.2.2
 
 dev_dependencies:
   flutter_test:
@@ -23,6 +23,8 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/i18n/
 
   
   

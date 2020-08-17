@@ -4,6 +4,7 @@ import 'package:driving_school_controller/answers_viewmodel.dart';
 import 'package:driving_school_controller/main.dart';
 import 'package:driving_school_controller/result.dart';
 import 'package:flutter/material.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 
 class ResponseArea extends StatefulWidget {
@@ -57,6 +58,7 @@ class _ResponseAreaState extends State<ResponseArea> {
                           ),
                           Spacer(flex: 1),
                           Row(
+                            textDirection: TextDirection.ltr,
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: <Widget>[
                               IconButton(
@@ -127,7 +129,8 @@ class _ResponseAreaState extends State<ResponseArea> {
                           Consumer<AnswerViewModel>(
                               builder: (_, answer, child) {
                             return CheckboxListTile(
-                              title: Text("Not Confirmed"),
+                              title:
+                                  Text(translator.translate("not_confirmed")),
                               value: _confirmedAnswers(),
                               onChanged: (checked) {
                                 _toggleDropDown(checked);
@@ -138,47 +141,50 @@ class _ResponseAreaState extends State<ResponseArea> {
                           Spacer(
                             flex: 2,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              SizedBox(
-                                width: 40,
-                                child: RawMaterialButton(
-                                  fillColor: Colors.grey.shade400,
-                                  onPressed: avm.previous,
-                                  child: Icon(Icons.arrow_back,
-                                      color: Colors.white),
-                                ),
-                              ),
-                              Stack(
-                                alignment: Alignment.centerRight,
-                                overflow: Overflow.visible,
-                                children: <Widget>[
-                                  RawMaterialButton(
-                                    fillColor: Theme.of(context).primaryColor,
-                                    onPressed: avm.next,
-                                    child: Icon(Icons.arrow_forward,
+                          Directionality(
+                            textDirection: TextDirection.ltr,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                SizedBox(
+                                  width: 40,
+                                  child: RawMaterialButton(
+                                    fillColor: Colors.grey.shade400,
+                                    onPressed: avm.previous,
+                                    child: Icon(Icons.arrow_back,
                                         color: Colors.white),
                                   ),
-                                  Positioned(
-                                    right: -35,
-                                    child: StreamBuilder<int>(
-                                      stream: avm.countDown,
-                                      builder: (_, snapshot) {
-                                        if (snapshot.hasData) {
-                                          return Text("(" +
-                                              snapshot.data
-                                                  .toString()
-                                                  .padLeft(2, "0") +
-                                              ")");
-                                        } else
-                                          return SizedBox.shrink();
-                                      },
+                                ),
+                                Stack(
+                                  alignment: Alignment.centerRight,
+                                  overflow: Overflow.visible,
+                                  children: <Widget>[
+                                    RawMaterialButton(
+                                      fillColor: Theme.of(context).primaryColor,
+                                      onPressed: avm.next,
+                                      child: Icon(Icons.arrow_forward,
+                                          color: Colors.white),
                                     ),
-                                  )
-                                ],
-                              ),
-                            ],
+                                    Positioned(
+                                      right: -35,
+                                      child: StreamBuilder<int>(
+                                        stream: avm.countDown,
+                                        builder: (_, snapshot) {
+                                          if (snapshot.hasData) {
+                                            return Text("(" +
+                                                snapshot.data
+                                                    .toString()
+                                                    .padLeft(2, "0") +
+                                                ")");
+                                          } else
+                                            return SizedBox.shrink();
+                                        },
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
                           )
                         ],
                       ),
