@@ -29,14 +29,19 @@ class _ResponseAreaState extends State<ResponseArea> {
 
   @override
   Widget build(BuildContext context) {
+    double vh = MediaQuery.of(context).size.height;
+    double vw = MediaQuery.of(context).size.width;
+
+    bool sm = vh < 600;
+
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
             child: Container(
-              width: MediaQuery.of(context).size.width * .8,
-              height: MediaQuery.of(context).size.height * .8,
+              width: sm ? vw : vw * .8,
+              height: sm ? vh : vh * .8,
               child: Stack(
                 alignment: Alignment.topRight,
                 children: <Widget>[
@@ -90,10 +95,11 @@ class _ResponseAreaState extends State<ResponseArea> {
                             return LayoutBuilder(
                               builder: (BuildContext context,
                                   BoxConstraints constraints) {
+
                                 double w = constraints.maxWidth /
                                     (designOption == "grid" ? 2 : 1);
 
-                                double h = (designOption == "grid" ? w : 80);
+                                double h = (designOption == "grid" ? (sm ? w / 2 : w) : (sm ? 60 : 80));
 
                                 return Wrap(
                                   children: List.generate(
