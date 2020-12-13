@@ -1,7 +1,8 @@
 {
-  "appTitle": "Télécommande auto-école",
+  "appTitle": "Auto-école Naaim",
   "driver_license_type": "Sélectionnez le type de permis de conduire",
   "not_confirmed": "pas confirmé",
   "auto_next_duration": "Durée de suivante automatique",
-  "select_language": "Choisir la langue"
+  "select_language": "Choisir la langue",
+  "start": "Commencez"
 }

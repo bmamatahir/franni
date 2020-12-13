@@ -47,7 +47,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Driving Training',
-      theme: ThemeData(),
+      theme: ThemeData(
+        primaryColor: Colors.blueGrey,
+        accentColor: Colors.blueGrey,
+      ),
       home: MyHomePage(),
       localizationsDelegates: translator.delegates,
       locale: translator.locale,
@@ -107,66 +110,97 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
         title: Text(translator.translate("appTitle")),
+        centerTitle: true,
+        elevation: 0,
       ),
-      body: Center(
+      body: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20))
+        ),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(20.0).copyWith(top: 25),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                translator.translate("select_language"),
-                style: Theme.of(context).textTheme.caption.copyWith(height: 2),
+              InputDecorator(
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.language, color: Theme.of(context).primaryColor),
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+                  labelText: translator.translate("select_language"),
+                ),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton<String>(
+                    value: _lang ?? translator.currentLanguage,
+                    items: LIST_OF_LANGS
+                        .map((v) => DropdownMenuItem(
+                              child: Text(v),
+                              value: v,
+                            ))
+                        .toList(),
+                    onChanged: (String lang) {
+                      setState(() {
+                        _lang = lang;
+                        translator.setNewLanguage(context,
+                            newLanguage: lang, remember: true, restart: true);
+                      });
+                    },
+                  ),
+                ),
               ),
-              DropdownButton<String>(
-                value: _lang ?? translator.currentLanguage,
-                items: LIST_OF_LANGS
-                    .map((v) => DropdownMenuItem(
-                          child: Text(v),
-                          value: v,
-                        ))
-                    .toList(),
-                onChanged: (String lang) {
-                  setState(() {
-                    _lang = lang;
-                    translator.setNewLanguage(context,
-                        newLanguage: lang, remember: true, restart: true);
-                  });
-                },
-              ),
-              Text(
-                translator.translate("driver_license_type"),
-                style: Theme.of(context).textTheme.caption.copyWith(height: 2),
-              ),
-              DropdownButton<DrivingLicenceType>(
-                value: _selectedDrivingLicenceType,
-                items: _drivingLicenceTypes.keys
-                    .map((k) => DropdownMenuItem(
-                          child: Text(_drivingLicenceTypes[k]),
-                          value: k,
-                        ))
-                    .toList(),
-                onChanged: (DrivingLicenceType dlt) {
-                  setState(() {
-                    _selectedDrivingLicenceType = dlt;
-                    avm.drivingLicenceType = dlt;
+              SizedBox(height: 25),
+              InputDecorator(
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.car_repair, color: Theme.of(context).primaryColor),
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+                  labelText: translator.translate("driver_license_type"),
+                ),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton<DrivingLicenceType>(
+                    value: _selectedDrivingLicenceType,
+                    items: _drivingLicenceTypes.keys
+                        .map((k) => DropdownMenuItem(
+                              child: Text(_drivingLicenceTypes[k]),
+                              value: k,
+                            ))
+                        .toList(),
+                    onChanged: (DrivingLicenceType dlt) {
+                      setState(() {
+                        _selectedDrivingLicenceType = dlt;
+                        avm.drivingLicenceType = dlt;
 
-                    _hiveDB
-                        .getPreferencesBox()
-                        .put(hdrivingLicenceType, EnumToString.parse(dlt));
-                  });
-                },
+                        _hiveDB
+                            .getPreferencesBox()
+                            .put(hdrivingLicenceType, EnumToString.parse(dlt));
+                      });
+                    },
+                  ),
+                ),
               ),
-              SizedBox(
+              SizedBox(height: 25),
+              InputDecorator(
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.timer, color: Theme.of(context).primaryColor),
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+                  labelText: translator.translate("auto_next_duration"),
+                ),
                 child: TextField(
+                  decoration: InputDecoration.collapsed(
+                    border: InputBorder.none,
+                    hintText: null,
+                  ),
                   controller: andc,
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    labelText: translator.translate("auto_next_duration"),
-                  ),
                   onChanged: (String v) {
                     if (v.isNotEmpty) {
                       _hiveDB
@@ -181,13 +215,14 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () => Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (BuildContext context) => ResponseArea())),
         tooltip: 'Start Training',
-        child: Icon(Icons.play_arrow),
+        icon: Icon(Icons.play_arrow),
+        label: Text(translator.translate("start")),
       ),
     );
   }

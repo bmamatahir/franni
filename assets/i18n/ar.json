@@ -1,7 +1,8 @@
 {
-  "appTitle": "محول سيارة التعليم",
+  "appTitle": "مدرسة النعيم للسياق",
   "driver_license_type": "إختر نوع رخصة السياقة",
   "not_confirmed": "غير متأكد",
   "auto_next_duration": "مدة مرور تلقائي",
-  "select_language": "إختر لغات التطبيق"
+  "select_language": "إختر لغات التطبيق",
+  "start": "ابدأ"
 }
