@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:driving_school_controller/answers_viewmodel.dart';
-import 'package:driving_school_controller/main.dart';
-import 'package:driving_school_controller/result.dart';
+import 'package:franni/answers_viewmodel.dart';
+import 'package:franni/main.dart';
+import 'package:franni/result.dart';
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';

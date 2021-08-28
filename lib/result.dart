@@ -1,7 +1,8 @@
-import 'package:driving_school_controller/main.dart';
-import 'package:driving_school_controller/qa_model.dart';
 import 'package:flutter/material.dart';
+import 'package:franni/main.dart';
+import 'package:franni/qa_model.dart';
 import 'package:provider/provider.dart';
+
 import './enums.dart';
 import 'answers_viewmodel.dart';
 
@@ -49,7 +50,9 @@ class _ResultState extends State<Result> {
                   padding: EdgeInsets.all(0),
                   color: emptyQuestion(index + 1)
                       ? Colors.white10
-                      : isWrong(index + 1) ? Colors.red : Colors.black12,
+                      : isWrong(index + 1)
+                          ? Colors.red
+                          : Colors.black12,
                   child: Stack(
                     children: <Widget>[
                       Column(

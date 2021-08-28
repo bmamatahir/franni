@@ -1,13 +1,13 @@
-import 'package:driving_school_controller/answers_viewmodel.dart';
-import 'package:driving_school_controller/response_area.dart';
 import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:franni/answers_viewmodel.dart';
+import 'package:franni/response_area.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 
-import 'hive/hivedb.dart';
 import './enums.dart';
+import 'hive/hivedb.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +22,7 @@ void main() async {
   int autoNextDuration =
       hiveDB.getPreferencesBox().get(hquestionAutoNextDuration) ?? 15;
 
-  LIST_OF_LANGS = ['ar', 'en', 'fr'];
+  LIST_OF_LANGS = ['en', 'ar', 'fr'];
   LANGS_DIR = 'assets/i18n/';
 
   await translator.init();
@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Driving Training',
+      title: translator.translate("appTitle"),
       theme: ThemeData(
         primaryColor: Colors.blueGrey,
         accentColor: Colors.blueGrey,
@@ -118,9 +118,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20))
-        ),
+            color: Colors.white,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
         child: Padding(
           padding: const EdgeInsets.all(20.0).copyWith(top: 25),
           child: Column(
@@ -130,7 +129,8 @@ class _MyHomePageState extends State<MyHomePage> {
               InputDecorator(
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.language, color: Theme.of(context).primaryColor),
+                  prefixIcon: Icon(Icons.language,
+                      color: Theme.of(context).primaryColor),
                   contentPadding:
                       EdgeInsets.symmetric(vertical: 0, horizontal: 20),
                   labelText: translator.translate("select_language"),
@@ -158,7 +158,8 @@ class _MyHomePageState extends State<MyHomePage> {
               InputDecorator(
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.car_repair, color: Theme.of(context).primaryColor),
+                  prefixIcon: Icon(Icons.car_repair,
+                      color: Theme.of(context).primaryColor),
                   contentPadding:
                       EdgeInsets.symmetric(vertical: 0, horizontal: 20),
                   labelText: translator.translate("driver_license_type"),
@@ -189,7 +190,8 @@ class _MyHomePageState extends State<MyHomePage> {
               InputDecorator(
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.timer, color: Theme.of(context).primaryColor),
+                  prefixIcon:
+                      Icon(Icons.timer, color: Theme.of(context).primaryColor),
                   contentPadding:
                       EdgeInsets.symmetric(vertical: 0, horizontal: 20),
                   labelText: translator.translate("auto_next_duration"),

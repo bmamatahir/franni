@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:driving_school_controller/qa_model.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:franni/qa_model.dart';
 
 import 'enums.dart';
 
