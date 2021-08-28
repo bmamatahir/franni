@@ -32,7 +32,7 @@ flutter:
 flutter_icons:
   android: "ic_launcher"
   ios: true
-  image_path: "assets/logo.png"
+  image_path: "assets/franni.png"
 
   
   
